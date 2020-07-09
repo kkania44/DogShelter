@@ -1,4 +1,4 @@
-package pl.kania.shelter.api;
+package pl.kania.shelter.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,6 +25,7 @@ public class DogEntity {
     @Column(nullable = false)
     @Setter
     private float weight;
+    private String conditions;
     @Setter
     private String rabiesVaccinationDate;
     @Setter
