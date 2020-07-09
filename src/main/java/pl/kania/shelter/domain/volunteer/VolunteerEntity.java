@@ -23,9 +23,12 @@ public class VolunteerEntity {
     private String lastName;
     @Column(name = "vr_pesel", length = 11, nullable = false, unique = true)
     private String pesel;
-    @Setter
     @Column(name = "vr_dogs")
     @OneToMany(mappedBy = "volunteer")
     private List<DogEntity> dogs;
+
+    public void addDogToList(DogEntity dog) {
+        dogs.add(dog);
+    }
 
 }
