@@ -1,7 +1,7 @@
-package pl.kania.shelter.domain;
+package pl.kania.shelter.domain.volunteer;
 
 import lombok.*;
-import pl.kania.shelter.domain.DogEntity;
+import pl.kania.shelter.domain.dog.DogEntity;
 
 import javax.persistence.*;
 import java.util.List;

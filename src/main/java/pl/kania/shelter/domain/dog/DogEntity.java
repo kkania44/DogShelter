@@ -1,7 +1,8 @@
-package pl.kania.shelter.domain;
+package pl.kania.shelter.domain.dog;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

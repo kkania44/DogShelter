@@ -3,7 +3,7 @@ package pl.kania.shelter.api.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import pl.kania.shelter.domain.DogEntity;
+import pl.kania.shelter.domain.dog.DogEntity;
 import java.util.List;
 
 @AllArgsConstructor
