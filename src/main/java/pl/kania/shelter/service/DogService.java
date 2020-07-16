@@ -23,7 +23,6 @@ public class DogService {
     }
 
     public void createDog(Dog newDog) {
-//        VolunteerEntity volunteer = volunteerRepository.getOne(newDog.getVolunteerId());
         DogEntity dogToAdd = new DogEntity(null, newDog.getName(), newDog.getSex(), newDog.getBirthDate(),
                 newDog.getWeight(), String.join(",", newDog.getConditions()),
                 newDog.getRabiesVaccinationDate());

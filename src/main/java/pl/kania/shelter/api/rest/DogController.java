@@ -41,7 +41,7 @@ public class DogController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(Integer id) {
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
         dogService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -46,16 +46,17 @@ public class VolunteerService {
     }
 
     public void deleteById(Integer id) {
+        List<DogEntity> dogs = volunteerRepository.getOne(id).getDogs();
+        for (DogEntity dog : dogs) {
+            dog.setVolunteer(null);
+            dogRepository.save(dog);
+        }
         volunteerRepository.deleteById(id);
     }
 
     private Volunteer mapToModel(VolunteerEntity volEntity) {
-        Volunteer volunteer =  new Volunteer(volEntity.getId(), volEntity.getFirstName(), volEntity.getLastName(),
+        return new Volunteer(volEntity.getId(), volEntity.getFirstName(), volEntity.getLastName(),
                 volEntity.getPesel(), volEntity.getDogs());
-//        if (volEntity.getDogs() != null) {
-//            volunteer.setDogs(volEntity.getDogs());
-//        }
-        return volunteer;
     }
 
  }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.kania.shelter.api.model.Volunteer;
 import pl.kania.shelter.service.VolunteerService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/volunteers")
 public class VolunteerController {
@@ -31,6 +33,17 @@ public class VolunteerController {
     @GetMapping("/{id}")
     public Volunteer getById(@PathVariable("id") Integer id) {
         return volunteerService.getById(id);
+    }
+
+    @GetMapping
+    public List<Volunteer> getAll() {
+        return volunteerService.getAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
+        volunteerService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

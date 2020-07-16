@@ -20,7 +20,7 @@ public class DogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dg_id")
     private Integer id;
-    @Column(name = "dg_name", length = 12, nullable = false)
+    @Column(name = "dg_name", length = 12, nullable = false, unique = true)
     private String name;
     @Column(name = "dg_sex",length = 1, nullable = false)
     private String sex;
