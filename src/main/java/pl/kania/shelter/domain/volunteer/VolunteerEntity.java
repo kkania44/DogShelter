@@ -25,7 +25,7 @@ public class VolunteerEntity {
     @Column(name = "vr_pesel", length = 11, nullable = false, unique = true)
     private String pesel;
     @Column(name = "vr_dogs")
-    @OneToMany(mappedBy = "volunteer")
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
     private List<DogEntity> dogs;
 
     public void addDogToList(DogEntity dog) {

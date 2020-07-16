@@ -39,4 +39,15 @@ public class DogEntity {
     @JoinColumn(name = "vr_id")
     private VolunteerEntity volunteer;
 
+    public DogEntity(Integer id, String name, String sex, LocalDate birthDate,
+                     float weight, String conditions, String rabiesVaccinationDate) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.weight = weight;
+        this.conditions = conditions;
+        this.rabiesVaccinationDate = rabiesVaccinationDate;
+    }
+
 }
