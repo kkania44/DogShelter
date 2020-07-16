@@ -35,4 +35,8 @@ public class VolunteerEntity {
         dogs.add(dog);
     }
 
+    public void removeDogFromList(DogEntity dog) {
+        dogs.remove(dog);
+    }
+
 }

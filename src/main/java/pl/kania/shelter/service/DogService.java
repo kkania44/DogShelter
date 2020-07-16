@@ -50,7 +50,15 @@ public class DogService {
     }
 
     public void deleteById(Integer id) {
+        removeDogFromVolunteersList(id);
         dogRepository.deleteById(id);
+    }
+
+    private void removeDogFromVolunteersList(Integer id) {
+        DogEntity dog = dogRepository.getOne(id);
+        VolunteerEntity volunteer = volunteerRepository.getOne(dog.getVolunteer().getId());
+        volunteer.removeDogFromList(dog);
+        volunteerRepository.save(volunteer);
     }
 
     private Dog mapToModel(DogEntity dogEntity) {
