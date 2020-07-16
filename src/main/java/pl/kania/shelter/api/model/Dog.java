@@ -3,6 +3,7 @@ package pl.kania.shelter.api.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Dog {
     private Integer id;
     private String name;
     private String sex;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private float weight;
     @Setter

@@ -12,21 +12,26 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @ToString
+@Table(name = "dogs")
 public class DogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dg_id")
     private Integer id;
-    @Column(length = 12, nullable = false)
+    @Column(name = "dg_name", length = 12, nullable = false)
     private String name;
-    @Column(length = 1, nullable = false)
+    @Column(name = "dg_sex",length = 1, nullable = false)
     private String sex;
+    @Column(name = "dg_birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-    @Column(nullable = false)
+    @Column(name = "dg_weight", nullable = false)
     @Setter
     private float weight;
+    @Column(name = "dg_conditions")
     private String conditions;
+    @Column(name = "dg_rabies_vacc_date")
     @Setter
     private String rabiesVaccinationDate;
     @Setter

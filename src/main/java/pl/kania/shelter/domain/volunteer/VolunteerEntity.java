@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @ToString
+@Table(name = "volunteers")
 public class VolunteerEntity {
 
     @Id

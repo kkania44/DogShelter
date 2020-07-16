@@ -8,8 +8,6 @@ import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 import pl.kania.shelter.domain.volunteer.VolunteerRepository;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +23,10 @@ public class DogService {
     }
 
     public void createDog(Dog newDog) {
-        VolunteerEntity volunteer = volunteerRepository.getOne(newDog.getId());
-        DogEntity dogToAdd = new DogEntity(newDog.getId(), newDog.getName(), newDog.getSex(), newDog.getBirthDate(),
+        VolunteerEntity volunteer = volunteerRepository.getOne(newDog.getVolunteerId());
+        DogEntity dogToAdd = new DogEntity(null, newDog.getName(), newDog.getSex(), newDog.getBirthDate(),
                 newDog.getWeight(), String.join(",", newDog.getConditions()),
-                newDog.getRabiesVaccinationDate(), volunteer);
+                newDog.getRabiesVaccinationDate(), null);
         dogRepository.save(dogToAdd);
     }
 
@@ -57,9 +55,13 @@ public class DogService {
     }
 
     private Dog mapToModel(DogEntity dogEntity) {
-        return new Dog(dogEntity.getId(), dogEntity.getName(), dogEntity.getSex(), dogEntity.getBirthDate(),
+        Dog dog = new Dog(dogEntity.getId(), dogEntity.getName(), dogEntity.getSex(), dogEntity.getBirthDate(),
                 dogEntity.getWeight(), Arrays.asList(dogEntity.getConditions().split(",")),
-                dogEntity.getRabiesVaccinationDate(), dogEntity.getVolunteer().getId());
+                dogEntity.getRabiesVaccinationDate(), null);
+        if (dogEntity.getVolunteer() != null) {
+            dog.setVolunteerId(dogEntity.getVolunteer().getId());
+        }
+        return dog;
     }
 
 }

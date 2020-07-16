@@ -8,7 +8,8 @@ import pl.kania.shelter.service.DogService;
 
 import java.util.List;
 
-@RestController("/dogs")
+@RestController
+@RequestMapping("/dogs")
 public class DogController {
 
     private DogService dogService;
@@ -18,13 +19,13 @@ public class DogController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addNewDog(Dog dog) {
+    public ResponseEntity<Void> addNewDog(@RequestBody Dog dog) {
         dogService.createDog(dog);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> updateDogData(Dog dog) {
+    public ResponseEntity<Void> updateDogData(@RequestBody Dog dog) {
         dogService.updateDog(dog);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
