@@ -2,6 +2,7 @@ package pl.kania.shelter.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class Dog {
 
@@ -25,4 +27,13 @@ public class Dog {
     @Setter
     private Integer volunteerId;
 
+    public Dog(Integer id, String name, String sex, LocalDate birthDate, float weight, List<String> conditions, String rabiesVaccinationDate) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.weight = weight;
+        this.conditions = conditions;
+        this.rabiesVaccinationDate = rabiesVaccinationDate;
+    }
 }

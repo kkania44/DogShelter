@@ -1,5 +1,6 @@
 package pl.kania.shelter.domain.dog;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;
@@ -37,6 +38,7 @@ public class DogEntity {
     @Setter
     @ManyToOne
     @JoinColumn(name = "vr_id")
+    @JsonBackReference
     private VolunteerEntity volunteer;
 
     public DogEntity(Integer id, String name, String sex, LocalDate birthDate,

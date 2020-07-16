@@ -50,8 +50,12 @@ public class VolunteerService {
     }
 
     private Volunteer mapToModel(VolunteerEntity volEntity) {
-        return new Volunteer(volEntity.getId(), volEntity.getFirstName(), volEntity.getLastName(),
+        Volunteer volunteer =  new Volunteer(volEntity.getId(), volEntity.getFirstName(), volEntity.getLastName(),
                 volEntity.getPesel(), volEntity.getDogs());
+//        if (volEntity.getDogs() != null) {
+//            volunteer.setDogs(volEntity.getDogs());
+//        }
+        return volunteer;
     }
 
  }

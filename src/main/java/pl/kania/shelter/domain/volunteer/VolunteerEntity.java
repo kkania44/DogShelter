@@ -1,5 +1,7 @@
 package pl.kania.shelter.domain.volunteer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import pl.kania.shelter.domain.dog.DogEntity;
 
@@ -25,7 +27,8 @@ public class VolunteerEntity {
     @Column(name = "vr_pesel", length = 11, nullable = false, unique = true)
     private String pesel;
     @Column(name = "vr_dogs")
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "volunteer")
+    @JsonManagedReference
     private List<DogEntity> dogs;
 
     public void addDogToList(DogEntity dog) {
