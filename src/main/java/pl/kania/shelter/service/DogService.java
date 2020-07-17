@@ -2,13 +2,13 @@ package pl.kania.shelter.service;
 
 import org.springframework.stereotype.Service;
 import pl.kania.shelter.api.model.Dog;
+import pl.kania.shelter.api.model.DogWithVolunteerName;
 import pl.kania.shelter.domain.dog.DogEntity;
 import pl.kania.shelter.domain.dog.DogRepository;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 import pl.kania.shelter.domain.volunteer.VolunteerRepository;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +46,45 @@ public class DogService {
     public List<Dog> getAll() {
         return dogRepository.findAll().stream()
                 .map(dogEnt -> mapToModel(dogEnt))
+                .collect(Collectors.toList());
+    }
+
+//    Need to fix it
+//    public List<DogWithVolunteerName> getAllWithAssignedVolunteers() {
+//        List<DogEntity> dogsWithVolunteer = dogRepository.findAllByVolunteerNotNull();
+//        return createListOfDogsWithVolunteers(dogsWithVolunteer);
+//    }
+//
+//    private List<DogWithVolunteerName> createListOfDogsWithVolunteers(List<DogEntity> dogsWithVolunteer) {
+//        List<DogWithVolunteerName> dogsPlusVolunteers = new ArrayList<>();
+//        for(DogEntity dog: dogsWithVolunteer) {
+//            DogWithVolunteerName dogWithVolunteerName = new DogWithVolunteerName();
+//
+//            dogWithVolunteerName.setDogName(dog.getName());
+//            VolunteerEntity volunteer = volunteerRepository.getOne(dog.getVolunteer().getId());
+//            dogWithVolunteerName.setVolunteerFirstName(volunteer.getFirstName());
+//            dogWithVolunteerName.setVolunteerLastName(volunteer.getLastName());
+//
+//            dogsPlusVolunteers.add(dogWithVolunteerName);
+//        }
+//        return dogsPlusVolunteers;
+//    }
+
+    public List<Dog> getAllDogsWithoutVolunteer(){
+        return dogRepository.findAllByVolunteerNull().stream()
+                .map(dog -> mapToModel(dog))
+                .collect(Collectors.toList());
+    }
+
+    public List<Dog> getDogsMustBeVaccinated() {
+        Calendar calendar = Calendar.getInstance();
+        Integer monthNumber = calendar.get(Calendar.MONTH) + 1;
+        String monthNumberAsString = monthNumber.toString();
+        if (monthNumber < 10) {
+            monthNumberAsString = "0" + monthNumberAsString;
+        }
+        return dogRepository.findAllByRabiesVaccinationDateLike("%-" + monthNumberAsString).stream()
+                .map(dog -> mapToModel(dog))
                 .collect(Collectors.toList());
     }
 

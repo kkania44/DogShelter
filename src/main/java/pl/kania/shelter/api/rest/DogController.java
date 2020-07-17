@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kania.shelter.api.model.Dog;
+import pl.kania.shelter.api.model.DogWithVolunteerName;
 import pl.kania.shelter.service.DogService;
 
 import java.util.List;
@@ -39,6 +40,21 @@ public class DogController {
     public List<Dog> getAllDogs() {
         return dogService.getAll();
     }
+
+    @GetMapping("/noVolunteer")
+    public List<Dog> getAllWithoutVolunteer() {
+        return dogService.getAllDogsWithoutVolunteer();
+    }
+
+    @GetMapping("/toVaccinate")
+    public List<Dog> getAllDogsToBeVaccinatedThisMonth() {
+        return dogService.getDogsMustBeVaccinated();
+    }
+
+//    @GetMapping("/withVolunteers")
+//    public List<DogWithVolunteerName> getAllWithVolunteers() {
+//        return dogService.getAllWithAssignedVolunteers();
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {

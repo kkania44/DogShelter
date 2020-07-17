@@ -24,21 +24,16 @@ public class VolunteerController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/{id}/assign")
-    public ResponseEntity<Void> assignDogToVolunteer(@PathVariable("id") Integer volId, @RequestParam("dog_id") Integer dogId) {
-        volunteerService.addNewDogForVolunteer(volId, dogId);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
     @GetMapping("/{id}")
     public Volunteer getById(@PathVariable("id") Integer id) {
         return volunteerService.getById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Volunteer> getAll() {
         return volunteerService.getAll();
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {

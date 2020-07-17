@@ -27,13 +27,6 @@ public class VolunteerService {
         volunteerRepository.save(volunteerToAdd);
     }
 
-    public void addNewDogForVolunteer(Integer volunteerId, Integer dogId) {
-        DogEntity dogToAdd = dogRepository.getOne(dogId);
-        VolunteerEntity volunteerToUpdate = volunteerRepository.getOne(volunteerId);
-        volunteerToUpdate.addDogToList(dogToAdd);
-        volunteerRepository.save(volunteerToUpdate);
-    }
-
     public Volunteer getById(Integer id) {
         VolunteerEntity volEntity = volunteerRepository.getOne(id);
         return mapToModel(volEntity);
