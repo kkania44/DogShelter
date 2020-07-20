@@ -49,7 +49,6 @@ public class DogService {
                 .collect(Collectors.toList());
     }
 
-//    Need to fix it
     public List<DogWithVolunteerName> getAllWithAssignedVolunteers() {
         List<DogEntity> dogsWithVolunteer = dogRepository.findAllByVolunteerNotNull();
         return createListOfDogsWithVolunteers(dogsWithVolunteer);
@@ -77,15 +76,20 @@ public class DogService {
     }
 
     public List<Dog> getDogsMustBeVaccinated() {
+        String currentMonthNumber = getCurrentMonthNumberAsString();
+        return dogRepository.findAllByRabiesVaccinationDateLike("%-" + currentMonthNumber).stream()
+                .map(dog -> mapToModel(dog))
+                .collect(Collectors.toList());
+    }
+
+    private String getCurrentMonthNumberAsString() {
         Calendar calendar = Calendar.getInstance();
         Integer monthNumber = calendar.get(Calendar.MONTH) + 1;
         String monthNumberAsString = monthNumber.toString();
         if (monthNumber < 10) {
             monthNumberAsString = "0" + monthNumberAsString;
         }
-        return dogRepository.findAllByRabiesVaccinationDateLike("%-" + monthNumberAsString).stream()
-                .map(dog -> mapToModel(dog))
-                .collect(Collectors.toList());
+        return monthNumberAsString;
     }
 
     public void deleteById(Integer id) {

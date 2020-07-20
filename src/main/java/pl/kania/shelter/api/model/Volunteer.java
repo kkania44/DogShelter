@@ -17,10 +17,5 @@ public class Volunteer {
     private String pesel;
     private List<DogEntity> dogs;
 
-    public Volunteer(Integer id, String firstName, String lastName, String pesel) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.pesel = pesel;
-    }
+
 }
