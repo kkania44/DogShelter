@@ -51,10 +51,10 @@ public class DogController {
         return dogService.getDogsMustBeVaccinated();
     }
 
-//    @GetMapping("/withVolunteers")
-//    public List<DogWithVolunteerName> getAllWithVolunteers() {
-//        return dogService.getAllWithAssignedVolunteers();
-//    }
+    @GetMapping("/withVolunteers")
+    public List<DogWithVolunteerName> getAllWithVolunteers() {
+        return dogService.getAllWithAssignedVolunteers();
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {

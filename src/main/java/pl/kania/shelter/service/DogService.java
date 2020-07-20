@@ -50,25 +50,25 @@ public class DogService {
     }
 
 //    Need to fix it
-//    public List<DogWithVolunteerName> getAllWithAssignedVolunteers() {
-//        List<DogEntity> dogsWithVolunteer = dogRepository.findAllByVolunteerNotNull();
-//        return createListOfDogsWithVolunteers(dogsWithVolunteer);
-//    }
-//
-//    private List<DogWithVolunteerName> createListOfDogsWithVolunteers(List<DogEntity> dogsWithVolunteer) {
-//        List<DogWithVolunteerName> dogsPlusVolunteers = new ArrayList<>();
-//        for(DogEntity dog: dogsWithVolunteer) {
-//            DogWithVolunteerName dogWithVolunteerName = new DogWithVolunteerName();
-//
-//            dogWithVolunteerName.setDogName(dog.getName());
-//            VolunteerEntity volunteer = volunteerRepository.getOne(dog.getVolunteer().getId());
-//            dogWithVolunteerName.setVolunteerFirstName(volunteer.getFirstName());
-//            dogWithVolunteerName.setVolunteerLastName(volunteer.getLastName());
-//
-//            dogsPlusVolunteers.add(dogWithVolunteerName);
-//        }
-//        return dogsPlusVolunteers;
-//    }
+    public List<DogWithVolunteerName> getAllWithAssignedVolunteers() {
+        List<DogEntity> dogsWithVolunteer = dogRepository.findAllByVolunteerNotNull();
+        return createListOfDogsWithVolunteers(dogsWithVolunteer);
+    }
+
+    private List<DogWithVolunteerName> createListOfDogsWithVolunteers(List<DogEntity> dogsWithVolunteer) {
+        List<DogWithVolunteerName> dogsPlusVolunteers = new ArrayList<>();
+        for(DogEntity dog: dogsWithVolunteer) {
+            DogWithVolunteerName dogWithVolunteerName = new DogWithVolunteerName();
+
+            dogWithVolunteerName.setDogName(dog.getName());
+            VolunteerEntity volunteer = volunteerRepository.getOne(dog.getVolunteer().getId());
+            dogWithVolunteerName.setVolunteerFirstName(volunteer.getFirstName());
+            dogWithVolunteerName.setVolunteerLastName(volunteer.getLastName());
+
+            dogsPlusVolunteers.add(dogWithVolunteerName);
+        }
+        return dogsPlusVolunteers;
+    }
 
     public List<Dog> getAllDogsWithoutVolunteer(){
         return dogRepository.findAllByVolunteerNull().stream()

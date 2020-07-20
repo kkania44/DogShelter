@@ -26,7 +26,6 @@ public class VolunteerEntity {
     private String lastName;
     @Column(name = "vr_pesel", length = 11, nullable = false, unique = true)
     private String pesel;
-    @Column(name = "vr_dogs")
     @OneToMany(mappedBy = "volunteer")
     @JsonManagedReference
     private List<DogEntity> dogs;
