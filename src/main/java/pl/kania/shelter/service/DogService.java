@@ -7,7 +7,10 @@ import pl.kania.shelter.domain.dog.DogEntity;
 import pl.kania.shelter.domain.dog.DogRepository;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 import pl.kania.shelter.domain.volunteer.VolunteerRepository;
+import pl.kania.shelter.exceptions.DogNotFoundException;
 
+import javax.persistence.EntityNotFoundException;
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,8 +42,9 @@ public class DogService {
     }
 
     public Dog getById(Integer id) {
-        DogEntity dogEntity = dogRepository.getOne(id);
-        return mapToModel(dogEntity);
+        Optional<DogEntity> dogEntity = dogRepository.findById(id);
+        return dogEntity.map(dog -> mapToModel(dog))
+                .orElseThrow(() -> new DogNotFoundException("Brak psa o podanym id"));
     }
 
     public List<Dog> getAll() {
@@ -56,7 +60,7 @@ public class DogService {
 
     private List<DogWithVolunteerName> createListOfDogsWithVolunteers(List<DogEntity> dogsWithVolunteer) {
         List<DogWithVolunteerName> dogsPlusVolunteers = new ArrayList<>();
-        for(DogEntity dog: dogsWithVolunteer) {
+        for (DogEntity dog : dogsWithVolunteer) {
             DogWithVolunteerName dogWithVolunteerName = new DogWithVolunteerName();
 
             dogWithVolunteerName.setDogName(dog.getName());
@@ -69,7 +73,7 @@ public class DogService {
         return dogsPlusVolunteers;
     }
 
-    public List<Dog> getAllDogsWithoutVolunteer(){
+    public List<Dog> getAllDogsWithoutVolunteer() {
         return dogRepository.findAllByVolunteerNull().stream()
                 .map(dog -> mapToModel(dog))
                 .collect(Collectors.toList());

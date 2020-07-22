@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kania.shelter.api.model.Dog;
 import pl.kania.shelter.api.model.DogWithVolunteerName;
+import pl.kania.shelter.exceptions.DogNotFoundException;
 import pl.kania.shelter.service.DogService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
