@@ -3,7 +3,6 @@ package pl.kania.shelter.service;
 import org.springframework.stereotype.Service;
 import pl.kania.shelter.api.model.Dog;
 import pl.kania.shelter.api.model.DogWithVolunteerName;
-import pl.kania.shelter.api.model.Volunteer;
 import pl.kania.shelter.domain.dog.DogEntity;
 import pl.kania.shelter.domain.dog.DogRepository;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;

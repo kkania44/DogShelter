@@ -6,9 +6,11 @@ import pl.kania.shelter.domain.dog.DogEntity;
 import pl.kania.shelter.domain.dog.DogRepository;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 import pl.kania.shelter.domain.volunteer.VolunteerRepository;
+import pl.kania.shelter.exceptions.ResourceAlreadyExistsException;
 import pl.kania.shelter.exceptions.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +27,11 @@ public class VolunteerService {
     }
 
     public void createVolunteer(Volunteer newVolunteer) {
+        Optional<VolunteerEntity> volunteerWithGivenPesel = volunteerRepository.findByPesel(newVolunteer.getPesel());
+        if (volunteerWithGivenPesel.isPresent()) {
+            throw new ResourceAlreadyExistsException("Volontariusz o podanym PESELU jest już w bazie");
+        }
+
         VolunteerEntity volunteerToAdd = new VolunteerEntity(newVolunteer.getId(), newVolunteer.getFirstName(),
                 newVolunteer.getLastName(), newVolunteer.getPesel(), newVolunteer.getDogs());
         volunteerRepository.save(volunteerToAdd);

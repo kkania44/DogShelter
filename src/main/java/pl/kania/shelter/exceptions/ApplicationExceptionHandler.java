@@ -17,5 +17,11 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<?> handleAlreadyExists(ResourceAlreadyExistsException exception, WebRequest request) {
+        ExceptionDetails details = new ExceptionDetails(new Date(), exception.getMessage(), request.getDescription(true));
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
 
 }
