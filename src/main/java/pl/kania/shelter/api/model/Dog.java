@@ -27,13 +27,4 @@ public class Dog {
     @Setter
     private Integer volunteerId;
 
-    public Dog(Integer id, String name, String sex, LocalDate birthDate, float weight, List<String> conditions, String rabiesVaccinationDate) {
-        this.id = id;
-        this.name = name;
-        this.sex = sex;
-        this.birthDate = birthDate;
-        this.weight = weight;
-        this.conditions = conditions;
-        this.rabiesVaccinationDate = rabiesVaccinationDate;
-    }
 }

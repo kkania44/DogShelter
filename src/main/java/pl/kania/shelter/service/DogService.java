@@ -3,14 +3,13 @@ package pl.kania.shelter.service;
 import org.springframework.stereotype.Service;
 import pl.kania.shelter.api.model.Dog;
 import pl.kania.shelter.api.model.DogWithVolunteerName;
+import pl.kania.shelter.api.model.Volunteer;
 import pl.kania.shelter.domain.dog.DogEntity;
 import pl.kania.shelter.domain.dog.DogRepository;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 import pl.kania.shelter.domain.volunteer.VolunteerRepository;
-import pl.kania.shelter.exceptions.DogNotFoundException;
+import pl.kania.shelter.exceptions.ResourceNotFoundException;
 
-import javax.persistence.EntityNotFoundException;
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,18 +32,25 @@ public class DogService {
     }
 
     public void updateDog(Dog dog) {
-        DogEntity dogToUpdate = dogRepository.getOne(dog.getId());
-        VolunteerEntity volunteer = volunteerRepository.getOne(dog.getVolunteerId());
+        Optional<DogEntity> optionalDogToUpdate = dogRepository.findById(dog.getId());
+        DogEntity dogToUpdate = optionalDogToUpdate.orElseThrow(() -> new ResourceNotFoundException("Brak psa o podanym id"));
+
         dogToUpdate.setWeight(dog.getWeight());
         dogToUpdate.setRabiesVaccinationDate(dog.getRabiesVaccinationDate());
-        dogToUpdate.setVolunteer(volunteer);
+
+        if(dog.getVolunteerId() != null) {
+            VolunteerEntity volunteer = volunteerRepository
+                    .findById(dog.getVolunteerId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Wolontariusz o podanym id nie istnieje"));
+            dogToUpdate.setVolunteer(volunteer);
+        }
         dogRepository.save(dogToUpdate);
     }
 
     public Dog getById(Integer id) {
         Optional<DogEntity> dogEntity = dogRepository.findById(id);
-        return dogEntity.map(dog -> mapToModel(dog))
-                .orElseThrow(() -> new DogNotFoundException("Brak psa o podanym id"));
+        return dogEntity.map(this::mapToModel)
+                .orElseThrow(() -> new ResourceNotFoundException("Brak psa o podanym id"));
     }
 
     public List<Dog> getAll() {
@@ -102,7 +108,9 @@ public class DogService {
     }
 
     private void removeDogFromVolunteersList(Integer id) {
-        DogEntity dog = dogRepository.getOne(id);
+        Optional<DogEntity> optionalDog = dogRepository.findById(id);
+        DogEntity dog = optionalDog.orElseThrow(() -> new ResourceNotFoundException("Brak psa o podanym id"));
+
         VolunteerEntity volunteer = volunteerRepository.getOne(dog.getVolunteer().getId());
         volunteer.removeDogFromList(dog);
         volunteerRepository.save(volunteer);

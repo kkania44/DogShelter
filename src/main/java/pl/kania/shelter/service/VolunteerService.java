@@ -6,12 +6,15 @@ import pl.kania.shelter.domain.dog.DogEntity;
 import pl.kania.shelter.domain.dog.DogRepository;
 import pl.kania.shelter.domain.volunteer.VolunteerEntity;
 import pl.kania.shelter.domain.volunteer.VolunteerRepository;
+import pl.kania.shelter.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class VolunteerService {
+
+    private static final String VOLUNTEER_NOT_FOUND_MESSAGE = "Brak wolontariusza o podanym id";
 
     private VolunteerRepository volunteerRepository;
     private DogRepository dogRepository;
@@ -28,23 +31,33 @@ public class VolunteerService {
     }
 
     public Volunteer getById(Integer id) {
-        VolunteerEntity volEntity = volunteerRepository.getOne(id);
-        return mapToModel(volEntity);
+        return volunteerRepository
+                .findById(id)
+                .map(this::mapToModel)
+                .orElseThrow(() -> new ResourceNotFoundException(VOLUNTEER_NOT_FOUND_MESSAGE));
     }
 
     public List<Volunteer> getAll() {
         return volunteerRepository.findAll().stream()
-                .map(volEnt -> mapToModel(volEnt))
+                .map(this::mapToModel)
                 .collect(Collectors.toList());
     }
 
     public void deleteById(Integer id) {
-        List<DogEntity> dogs = volunteerRepository.getOne(id).getDogs();
+        Volunteer volunteer = volunteerRepository.findById(id)
+                .map(this::mapToModel)
+                .orElseThrow(() -> new ResourceNotFoundException(VOLUNTEER_NOT_FOUND_MESSAGE));
+
+        List<DogEntity> dogs = volunteer.getDogs();
+        deleteVolunteerFodEachDog(dogs);
+        volunteerRepository.deleteById(id);
+    }
+
+    private void deleteVolunteerFodEachDog(List<DogEntity> dogs) {
         for (DogEntity dog : dogs) {
             dog.setVolunteer(null);
             dogRepository.save(dog);
         }
-        volunteerRepository.deleteById(id);
     }
 
     private Volunteer mapToModel(VolunteerEntity volEntity) {
@@ -52,4 +65,4 @@ public class VolunteerService {
                 volEntity.getPesel(), volEntity.getDogs());
     }
 
- }
+}

@@ -5,10 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kania.shelter.api.model.Dog;
 import pl.kania.shelter.api.model.DogWithVolunteerName;
-import pl.kania.shelter.exceptions.DogNotFoundException;
 import pl.kania.shelter.service.DogService;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -21,13 +19,13 @@ public class DogController {
         this.dogService = dogService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Void> addNewDog(@RequestBody Dog dog) {
         dogService.createDog(dog);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<Void> updateDogData(@RequestBody Dog dog) {
         dogService.updateDog(dog);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -38,7 +36,7 @@ public class DogController {
         return dogService.getById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Dog> getAllDogs() {
         return dogService.getAll();
     }

@@ -18,7 +18,7 @@ public class VolunteerController {
         this.volunteerService = volunteerService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Void> addNewVolunteer(@RequestBody Volunteer volunteer) {
         volunteerService.createVolunteer(volunteer);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -29,11 +29,10 @@ public class VolunteerController {
         return volunteerService.getById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Volunteer> getAll() {
         return volunteerService.getAll();
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
