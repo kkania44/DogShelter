@@ -3,6 +3,7 @@ package pl.kania.shelter.api.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.pl.PESEL;
 import pl.kania.shelter.domain.dog.DogEntity;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,7 @@ public class Volunteer {
     private Integer id;
     private String firstName;
     private String lastName;
+    @PESEL
     private String pesel;
     private List<DogEntity> dogs;
 
