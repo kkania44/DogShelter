@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class VolunteerService {
 
-    private static final String VOLUNTEER_NOT_FOUND_MESSAGE = "Brak wolontariusza o podanym id";
+    static final String VOLUNTEER_NOT_FOUND_MESSAGE = "Brak wolontariusza o podanym id";
 
     private VolunteerRepository volunteerRepository;
     private DogRepository dogRepository;
@@ -60,14 +60,14 @@ public class VolunteerService {
         volunteerRepository.deleteById(id);
     }
 
-    private void deleteVolunteerFodEachDog(List<DogEntity> dogs) {
+    void deleteVolunteerFodEachDog(List<DogEntity> dogs) {
         for (DogEntity dog : dogs) {
             dog.setVolunteer(null);
             dogRepository.save(dog);
         }
     }
 
-    private Volunteer mapToModel(VolunteerEntity volEntity) {
+    Volunteer mapToModel(VolunteerEntity volEntity) {
         return new Volunteer(volEntity.getId(), volEntity.getFirstName(), volEntity.getLastName(),
                 volEntity.getPesel(), volEntity.getDogs());
     }
