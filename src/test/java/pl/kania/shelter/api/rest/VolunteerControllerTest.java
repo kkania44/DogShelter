@@ -1,8 +1,5 @@
 package pl.kania.shelter.api.rest;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -21,13 +17,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pl.kania.shelter.api.model.Volunteer;
-import pl.kania.shelter.domain.volunteer.VolunteerRepository;
 import pl.kania.shelter.exceptions.ResourceNotFoundException;
 import pl.kania.shelter.service.VolunteerService;
 
-import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,31 +30,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @WithMockUser(roles = "USER")
 class VolunteerControllerTest {
-
-//    @Autowired
-//    private VolunteerRepository volunteerRepo;
-//
-//    @Autowired
-//    private TestRestTemplate testRestTemplate;
-//
-//    @BeforeEach
-//    public void before() {
-//        volunteerRepo.deleteAll();
-//    }
-//
-//    @Test
-//    @WithMockUser(roles = "USER", username = "user")
-//    public void shouldCreateVolunteer() {
-//        //given
-//        Volunteer volunteer = createSampleVolunteer(null, "881010123234");
-//        HttpEntity<Volunteer> httpEntity = new HttpEntity<>(volunteer);
-//        //when
-//        ResponseEntity<Void> responseEnt = testRestTemplate.exchange("/volunteers", HttpMethod.POST, httpEntity, Void.class);
-//        //then
-//        System.out.println(responseEnt.getHeaders().toString());
-//        assertEquals(201, responseEnt.getStatusCodeValue());
-//        assertEquals(1, volunteerRepo.count());
-//    }
 
     @Autowired
     private MockMvc mockMvc;
