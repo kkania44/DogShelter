@@ -34,6 +34,6 @@ public class Volunteer {
 
     @Override
     public int hashCode() {
-        return 13*id.hashCode() + 13*firstName.hashCode() + 13*pesel.hashCode();
+        return 7*firstName.hashCode() + 7*pesel.hashCode();
     }
 }

@@ -2,6 +2,7 @@ package pl.kania.shelter.api.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.kania.shelter.api.model.Dog;
 import pl.kania.shelter.api.model.DogWithVolunteerName;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dogs")
+@PreAuthorize("isAuthenticated()")
 public class DogController {
 
     private DogService dogService;
