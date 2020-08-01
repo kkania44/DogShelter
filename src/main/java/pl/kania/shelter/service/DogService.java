@@ -32,7 +32,8 @@ public class DogService {
 
     public void updateDog(Dog dog) {
         Optional<DogEntity> optionalDogToUpdate = dogRepository.findById(dog.getId());
-        DogEntity dogToUpdate = optionalDogToUpdate.orElseThrow(() -> new ResourceNotFoundException("Brak psa o podanym id"));
+        DogEntity dogToUpdate = optionalDogToUpdate
+                .orElseThrow(() -> new ResourceNotFoundException("Brak psa o podanym id"));
 
         dogToUpdate.setWeight(dog.getWeight());
         dogToUpdate.setRabiesVaccinationDate(dog.getRabiesVaccinationDate());
