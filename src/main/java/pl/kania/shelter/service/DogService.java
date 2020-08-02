@@ -59,7 +59,8 @@ public class DogService {
                 .collect(Collectors.toList());
     }
 
-    public List<DogWithVolunteerName> getAllWithAssignedVolunteers() {
+    // return only dog's name, volunteer's first and last name
+    public List<DogWithVolunteerName> getAllThatHaveVolunteer() {
         List<DogEntity> dogsWithVolunteer = dogRepository.findAllByVolunteerNotNull();
         return createListOfDogsWithVolunteers(dogsWithVolunteer);
     }

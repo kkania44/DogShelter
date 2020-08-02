@@ -55,7 +55,7 @@ public class DogController {
 
     @GetMapping("/withVolunteers")
     public List<DogWithVolunteerName> getAllWithVolunteers() {
-        return dogService.getAllWithAssignedVolunteers();
+        return dogService.getAllThatHaveVolunteer();
     }
 
     @DeleteMapping("/{id}")
