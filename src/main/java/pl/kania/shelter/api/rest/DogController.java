@@ -1,14 +1,24 @@
 package pl.kania.shelter.api.rest;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import pl.kania.shelter.api.model.Dog;
 import pl.kania.shelter.api.model.DogWithVolunteerName;
 import pl.kania.shelter.service.DogService;
 
+import javax.validation.Valid;
+import java.beans.BeanInfo;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/dogs")
@@ -22,7 +32,15 @@ public class DogController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addNewDog(@RequestBody Dog dog) {
+    public ResponseEntity<?> addNewDog(@Valid @RequestBody Dog dog, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getAllErrors().forEach(error -> {
+                String fieldName = ((FieldError) error).getField();
+                errors.put(fieldName, error.getDefaultMessage());
+            });
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        }
         dogService.createDog(dog);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

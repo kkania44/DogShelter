@@ -19,7 +19,7 @@ public class UserEntity {
     private Integer id;
     @Column(name = "username", unique = true, nullable = false)
     private String username;
-    @Column(name = "ur_password", unique = true, nullable = false)
+    @Column(name = "ur_password", nullable = false)
     private String password;
     @Column(name = "ur_role")
     private String role;

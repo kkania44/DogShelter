@@ -19,4 +19,10 @@ public class TestDogFactory {
         return new DogEntity(id, name, "M", LocalDate.parse("2015-04-13"), 15f,
                 "chicken allergy", "10-05", volunteer);
     }
+
+    public static String getDogObjectAsJson(Integer id, String name, Integer volId) {
+        return "{\"id\":" +id+ ",\"name\":\"" +name+ "\",\"sex\":\"M\",\"birthDate\":\"2015-04-13\"," +
+                "\"weight\":15.0,\"conditions\":[\"chicken allergy\"],\"rabiesVaccinationDate\":\"10-05\"," +
+                "\"volunteerId\":" +volId+ "}";
+    }
 }
